@@ -1,0 +1,6 @@
+C:\Users\ali-d\Desktop\Programming\prodCompressor\prodCompressor\prodCompressor\obj\Debug\prodCompressor.csprojResolveAssemblyReference.cache
+C:\Users\ali-d\Desktop\Programming\prodCompressor\prodCompressor\prodCompressor\bin\Debug\prodCompressor.exe.config
+C:\Users\ali-d\Desktop\Programming\prodCompressor\prodCompressor\prodCompressor\bin\Debug\prodCompressor.exe
+C:\Users\ali-d\Desktop\Programming\prodCompressor\prodCompressor\prodCompressor\bin\Debug\prodCompressor.pdb
+C:\Users\ali-d\Desktop\Programming\prodCompressor\prodCompressor\prodCompressor\obj\Debug\prodCompressor.exe
+C:\Users\ali-d\Desktop\Programming\prodCompressor\prodCompressor\prodCompressor\obj\Debug\prodCompressor.pdb
