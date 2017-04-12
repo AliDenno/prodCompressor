@@ -14,11 +14,9 @@ namespace prodCompressor
     {
         static void Main(string[] args)
         {
-            var sampleXml = File.ReadAllText(@"Resources\1.xmf");
-            var minifiedXml = new XMLMinifier(XMLMinifierSettings.Aggressive).Minify(sampleXml);
-            var path = @"Resources\Result\1.xmf";
-            File.WriteAllText(path, minifiedXml);
-            Console.WriteLine("Done");
+            //Console.WriteLine(Directory.GetCurrentDirectory());
+            Prod prod = new Prod(@"Resources\1.xmf");
+            prod.Operate(@"Resources\Result\1.xmf");
         }
     }
 }
