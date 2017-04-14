@@ -40,13 +40,6 @@ namespace prodCompressor
         }
     }
 
-    /// <summary>
-    /// XML minifier. No Regex allowed! ;-)
-    /// 
-    /// Example)
-    ///     var sampleXml = File.ReadAllText("somefile.xml");
-    ///     var minifiedXml = new XMLMinifier(XMLMinifierSettings.Aggressive).Minify(sampleXml);
-    /// </summary>
     public class XMLMinifier
     {
         private XMLMinifierSettings _minifierSettings;
