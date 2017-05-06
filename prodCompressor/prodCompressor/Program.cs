@@ -35,34 +35,33 @@ namespace prodCompressor
         }
         static void Main(string[] args)
         {
-            string filename = @"Resources\validtst.xml";
+            string filename = @"Resources\Lux.xmf";
             bool flag = !CheckValidHeader(filename);
             Console.WriteLine(flag);
             string readyToMin = "";
             string headerToKeep = "";
+
             //Valid header to dispose
             if (flag)
             {
                 Console.WriteLine("Valid header to dispose");
                 string text = File.ReadAllText(filename);
-
                 int startIndex = text.IndexOf('<');
                 int endIndex = text.IndexOf('<', text.IndexOf('<') + 1);
                 headerToKeep = text.Substring(startIndex, endIndex - startIndex);
-
-                Console.WriteLine(headerToKeep);
                 // This is the fixed XML FILE
                 readyToMin = text.Substring(0, startIndex) + "" +
                       text.Substring(endIndex);
             }
-
-            System.Threading.Thread.Sleep(5000);
-           
-            //Console.WriteLine(replaced);
+            else
+            {
+                readyToMin= File.ReadAllText(filename);
+            }
             //System.Threading.Thread.Sleep(5000);
+           
             var minifiedXml = new XMLMinifier(XMLMinifierSettings.Aggressive).Minify(readyToMin);
-            File.WriteAllText(@"C:\Users\ali-d\Desktop\Programming\prodCompressor\prodCompressor\prodCompressor\bin\Debug\Resources\Result\res.xmf", minifiedXml);
-
+            File.WriteAllText(@"Resources\resultLux.xmf", headerToKeep.Replace(System.Environment.NewLine, "") + minifiedXml);
+            Console.WriteLine("DONE");
 
             //Console.WriteLine(Directory.GetCurrentDirectory());
             //Prod prod = new Prod(@"Resources\1.xmf");
