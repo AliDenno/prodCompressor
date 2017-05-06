@@ -12,19 +12,38 @@ namespace prodCompressor
 {
     class Program
     {
-       /* public static bool CheckValidXml(String filename)
+        /////////////////////////////////////////////////////EXPERIMENTAL////////////////////////////////////////////////////////
+        public static void Operate(String assetName)
         {
-            try
+            string filename = assetName;
+            bool flag = !CheckValidHeader(filename);
+
+            string readyToMin = "";
+            string headerToKeep = "";
+            //Valid header to dispose
+            if (flag)
             {
-                ParseXml(xml);
-                return true;
+                
+                string text = File.ReadAllText(filename);
+                int startIndex = text.IndexOf('<');
+                int endIndex = text.IndexOf('<', text.IndexOf('<') + 1);
+                headerToKeep = text.Substring(startIndex, endIndex - startIndex);
+                // This is the fixed XML FILE
+                readyToMin = text.Substring(0, startIndex) + "" +
+                      text.Substring(endIndex);
             }
-            catch (XmlException e)
+            else
             {
-                return false;
+                readyToMin = File.ReadAllText(filename);
             }
-        }*/
-        public static bool CheckValidHeader(String filename)
+            //System.Threading.Thread.Sleep(5000);
+
+            var minifiedXml = new XMLMinifier(XMLMinifierSettings.Aggressive).Minify(readyToMin);
+            File.WriteAllText(assetName, headerToKeep.Replace(System.Environment.NewLine, "") + minifiedXml);
+            Console.WriteLine("DONE");
+        }
+            /////////////////////////////////////////////////////EXPERIMENTAL////////////////////////////////////////////////////////
+            public static bool CheckValidHeader(String filename)
         {
             string line1 = "";
             using (StreamReader reader = new StreamReader(filename))
@@ -35,12 +54,33 @@ namespace prodCompressor
         }
         static void Main(string[] args)
         {
+            /////////////////////////////////////////////////////EXPERIMENTAL////////////////////////////////////////////////////////
+            //-xaf, XAF-xmf, XMF-XSF, xsf-xml, XML-XRF, xrf-
+            string[] fileEntries = Directory.GetFiles(@"C:\Users\ali-d\Desktop\In Progress\IMVU_Publishing\TESTSIZE\TESTPROGRAM");
+           
+            foreach (string fileName in fileEntries)
+            {
+                Console.WriteLine(fileName);
+                string temp = Path.GetExtension(fileName);
+                if (temp == ".xml" || temp == ".XML" || temp ==".xaf" || temp == ".XAF" || temp == ".xmf" || temp == ".XMF" || temp == ".xrf" || temp == ".XRF" || temp == ".xsf" || temp == ".XSF")
+                {
+                    Operate(fileName);
+                }
+                
+            }
+            Console.WriteLine("Congrats");
+
+            /////////////////////////////////////////////////////EXPERIMENTAL////////////////////////////////////////////////////////
+
+
+            /*
+            //////////////////Once you get back here start working on traversing CHKN File and altering it//////////////////////
+
             string filename = @"Resources\Lux.xmf";
             bool flag = !CheckValidHeader(filename);
-            Console.WriteLine(flag);
+
             string readyToMin = "";
             string headerToKeep = "";
-
             //Valid header to dispose
             if (flag)
             {
@@ -63,9 +103,10 @@ namespace prodCompressor
             File.WriteAllText(@"Resources\resultLux.xmf", headerToKeep.Replace(System.Environment.NewLine, "") + minifiedXml);
             Console.WriteLine("DONE");
 
-            //Console.WriteLine(Directory.GetCurrentDirectory());
-            //Prod prod = new Prod(@"Resources\1.xmf");
-            //prod.Operate(@"Resources\Result\1.xmf");
+            
+              //The prod class would make sense once u start working on traversing the chkn file
+            
+          */
         }
     }
 }
