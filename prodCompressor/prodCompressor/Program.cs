@@ -12,6 +12,18 @@ namespace prodCompressor
 {
     class Program
     {
+       /* public static bool CheckValidXml(String filename)
+        {
+            try
+            {
+                ParseXml(xml);
+                return true;
+            }
+            catch (XmlException e)
+            {
+                return false;
+            }
+        }*/
         public static bool CheckValidHeader(String filename)
         {
             string line1 = "";
@@ -21,22 +33,31 @@ namespace prodCompressor
             }
             return (line1.LastIndexOf("HEADER") <= 0);
         }
-   
         static void Main(string[] args)
         {
-            string filename = @"Resources\test.xml";
+            string filename = @"Resources\validtst.xml";
             bool flag = !CheckValidHeader(filename);
             Console.WriteLine(flag);
+            string readyToMin = "";
+            string headerToKeep = "";
+            //Valid header to dispose
+            if (flag)
+            {
+                Console.WriteLine("Valid header to dispose");
+                string text = File.ReadAllText(filename);
 
-            string text = File.ReadAllText(@"Resources\test.xml");
+                int startIndex = text.IndexOf('<');
+                int endIndex = text.IndexOf('<', text.IndexOf('<') + 1);
+                headerToKeep = text.Substring(startIndex, endIndex - startIndex);
 
-            int startIndex = text.IndexOf('<');
-            int endIndex = text.IndexOf('<', text.IndexOf('<') + 1);
-            string header = text.Substring(startIndex, endIndex - startIndex);
+                Console.WriteLine(headerToKeep);
+                // This is the fixed XML FILE
+                readyToMin = text.Substring(0, startIndex) + "" +
+                      text.Substring(endIndex);
+            }
 
-            // This is the fixed XML FILE
-            string readyToMin = text.Substring(0, startIndex) + "" +
-                  text.Substring(endIndex);
+            System.Threading.Thread.Sleep(5000);
+           
             //Console.WriteLine(replaced);
             //System.Threading.Thread.Sleep(5000);
             var minifiedXml = new XMLMinifier(XMLMinifierSettings.Aggressive).Minify(readyToMin);
